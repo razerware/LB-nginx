@@ -21,6 +21,7 @@ type Upstream struct{
 	Backends []Backend
 }
 
+
 func (a *Upstream) Set(name string,ip []string,exPort int) {
 	a.Backends=append(a.Backends,Backend{name,ip,exPort})
 }
@@ -56,6 +57,7 @@ func UpdateNginx(upstream Upstream) error{
 	src, _ := ioutil.ReadFile(cfgPath)
 	if !bytes.Equal(src,oputBuf.Bytes()) {
 		log.Println("SSS")
+		log.Println("asdasdasdas")
 	//	tmpfile, err := ioutil.TempFile("", "new-nginx-cfg")
 	//	defer tmpfile.Close()
 	//	//diffOutput, _ := exec.Command("diff", "-u", cfgPath, tmpfile.Name()).CombinedOutput()
