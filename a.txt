@@ -1,1 +1,16 @@
-sada
+/*this is lzy's templatess
+upstream zxd.com {
+    server 192.168.1.2:8090;
+    server 192.168.1.2:8091;
+    server 192.168.1.2:8092;
+    session_sticky cookie=route_zxd.com mode=insert fallback=on;
+}
+server{
+    listen 81;
+    server_name zxd.com;
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}

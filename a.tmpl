@@ -1,0 +1,22 @@
+/*this is lzy's templatess
+{{range $i,$backends:=.Backends}}
+{{$name:=$backends.Name}}
+{{$ip:=$backends.Ip}}
+{{$export:=$backends.ExPort}}
+
+{{if $name}}
+upstream {{$name}} {
+{{range $n,$address:=$ip}}    server {{$address}};
+{{end}}    session_sticky cookie=route_{{$name}} mode=insert fallback=on;
+}
+server{
+    listen {{$export}};
+    server_name {{$name}};
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+{{end}}
+{{end}}
